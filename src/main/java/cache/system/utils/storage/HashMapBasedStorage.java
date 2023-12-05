@@ -13,8 +13,6 @@ public class HashMapBasedStorage implements Storage {
 
     Map<String, String> storage; // Map is interface
 
-    private LRUEvictionPolicy lruEvictionPolicy;
-
     public HashMapBasedStorage(int size) {
         this.cacheSize = size;
         storage = new HashMap<>();
@@ -34,8 +32,7 @@ public class HashMapBasedStorage implements Storage {
         System.out.println("storage size before eviction- "+ storage.size());
         if(!storage.containsKey(key)) throw  new NotFoundException("Key not found in storage to remove.");
         storage.remove(key);
-        lruEvictionPolicy.evictKey();
-        System.out.println("storage size before eviction- "+ storage.size());
+        System.out.println("storage size after eviction- "+ storage.size());
         return null;
     }
 

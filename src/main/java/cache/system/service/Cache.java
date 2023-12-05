@@ -24,7 +24,8 @@ public class Cache {
 
         } catch(StorageFullException e) {
             System.out.println("Cache is full, need to free the space before inserting new value");
-            evict();
+            String keyToRemove = evictionPolicy.evictKey();
+            storage.remove(keyToRemove);
             System.out.println("Storage space is available to insert the new key value pair");
             storage.add(key, value);
         }
@@ -42,9 +43,5 @@ public class Cache {
 
             return null;
         }
-    }
-
-    public String evict() {
-        return evictionPolicy.evictKey();
     }
 }
